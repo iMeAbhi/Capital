@@ -306,7 +306,7 @@
     }).join("");
     var html = '<div class="finance-shell">' +
       '<aside class="sidebar ' + (state.menuOpen ? "is-open" : "") + '">' +
-        '<div class="brand-row"><div class="brand-mark" aria-hidden="true">₹</div><div><strong>FinanceOS</strong><span>Your money, on purpose.</span></div>' +
+        '<div class="brand-row"><div class="brand-mark" aria-hidden="true">₹</div><div><strong>Capital</strong><span>Your money, on purpose.</span></div>' +
         '<button class="icon-button sidebar-close" data-action="menu-close" aria-label="Close menu">' + icon("close") + "</button></div>" +
         '<nav class="primary-nav" aria-label="Main navigation"><span class="nav-eyebrow">Workspace</span>' + nav + "</nav>" +
         '<div class="sidebar-pulse"><div class="pulse-icon">' + icon("shield") + "</div><div><strong>" +
@@ -316,7 +316,7 @@
       (state.menuOpen ? '<button class="sidebar-scrim" data-action="menu-close" aria-label="Close navigation"></button>' : "") +
       '<main class="main-panel"><header class="topbar">' +
         '<button class="icon-button menu-button" data-action="menu-open" aria-label="Open menu">' + icon("menu") + "</button>" +
-        '<div class="topbar-title"><span>' + (state.view === "overview" ? esc(new Intl.DateTimeFormat("en-IN", { weekday: "long", day: "numeric", month: "long" }).format(new Date())) : "FinanceOS") +
+        '<div class="topbar-title"><span>' + (state.view === "overview" ? esc(new Intl.DateTimeFormat("en-IN", { weekday: "long", day: "numeric", month: "long" }).format(new Date())) : "Capital") +
         "</span><strong>" + esc(current.label) + "</strong></div>" +
         '<div class="topbar-actions"><button class="sync-pill" data-action="sync" aria-label="Sync data">' +
           icon(state.sync.mode === "offline" ? "clock" : "wifi") + "<span>" + esc(state.sync.message) + "</span>" + icon("sync") + "</button>" +
@@ -598,9 +598,9 @@
       pageHeading("Make it yours", "Settings", "Configure your private data source, device controls, appearance and backups.") +
       '<div class="settings-layout"><div class="settings-main">' +
       '<section class="panel-card settings-card"><div class="settings-card-head"><div class="settings-icon green">' + icon("database") +
-        '</div><div><h2>Connect your Sheet</h2><p>The endpoint and token stay on this device. FinanceOS never sees your Google password.</p></div>' +
+        '</div><div><h2>Connect your Sheet</h2><p>The endpoint and token stay on this device. Capital never sees your Google password.</p></div>' +
         '<span class="connection-status ' + (connection.endpoint ? "connected" : "demo") + '">' + (connection.endpoint ? "Configured" : "Demo mode") +
-        '</span></div><div class="setup-steps"><div class="done"><span>1</span><div><strong>Create your FinanceOS Sheet</strong><small>Run setupFinanceOS() in the included Apps Script.</small></div></div>' +
+        '</span></div><div class="setup-steps"><div class="done"><span>1</span><div><strong>Create your Capital Sheet</strong><small>Run setupFinanceOS() in the included Apps Script.</small></div></div>' +
         '<div class="' + (connection.endpoint ? "done" : "") + '"><span>2</span><div><strong>Paste the private endpoint</strong><small>Use the deployed /exec URL—not an editor or preview URL.</small></div></div>' +
         '<div class="' + (connection.token ? "done" : "") + '"><span>3</span><div><strong>Add this device’s token</strong><small>Generate and rotate tokens from your Sheet menu.</small></div></div></div>' +
         '<form data-form="connection"><div class="form-grid"><label class="field full"><span>Apps Script web-app URL</span><div class="input-with-icon">' + icon("database") +
@@ -638,8 +638,8 @@
           return '<button data-action="set-accent" data-accent="' + accent + '" class="accent ' + accent + " " +
             (state.accent === accent ? "active" : "") + '" aria-label="' + accent + ' accent"></button>';
         }).join("") + '</div></div></section><section class="privacy-note">' + icon("shield") +
-        '<div><strong>Your privacy boundary</strong><p>Your financial data lives in your Sheet and optional device cache. The static app has no analytics, ads or shared FinanceOS database.</p></div></section>' +
-        '<section class="version-note"><span>FinanceOS package-free build</span><strong>Schema 1 · September 2026</strong></section></aside></div></div>';
+        '<div><strong>Your privacy boundary</strong><p>Your financial data lives in your Sheet and optional device cache. The static app has no analytics, ads or shared Capital database.</p></div></section>' +
+        '<section class="version-note"><span>Capital package-free build</span><strong>Schema 1 · September 2026</strong></section></aside></div></div>';
   }
 
   function modalShell(title, copy, body, extraClass) {
@@ -747,7 +747,7 @@
       '</div><div class="modal-actions"><button type="button" class="text-button" data-action="close-overlay">Cancel</button>' +
       '<button class="primary-button" type="submit">' + (account.type === "investment" ? "Update valuation" : "Reconcile account") + "</button></div></form>";
     return modalShell(account.type === "investment" ? "Update " + account.name : "Reconcile " + account.name,
-      account.type === "investment" ? "Record the latest portfolio valuation as a transparent snapshot." : "Compare FinanceOS with the balance shown by your bank or card issuer.", body);
+      account.type === "investment" ? "Record the latest portfolio valuation as a transparent snapshot." : "Compare Capital with the balance shown by your bank or card issuer.", body);
   }
 
   function reconciliationNote(account, numeric) {
@@ -755,7 +755,7 @@
     var difference = signed - account.balance;
     return '<div class="difference-note ' + (difference === 0 ? "match" : "mismatch") + '">' + icon(difference === 0 ? "check" : "info") +
       '<div><strong>' + esc(difference === 0 ? "Balances match" : signedInr(difference) + " adjustment needed") + "</strong><span>" +
-      esc(difference === 0 ? "This account can be marked reconciled." : "FinanceOS will record a visible balance adjustment and audit entry.") + "</span></div></div>";
+      esc(difference === 0 ? "This account can be marked reconciled." : "Capital will record a visible balance adjustment and audit entry.") + "</span></div></div>";
   }
 
   function renderBudgetModal() {
@@ -815,15 +815,15 @@
       (!payableAccounts.length ? '<div class="difference-note mismatch">' + icon("info") + "<div><strong>Add an account first</strong><span>An obligation needs a source account.</span></div></div>" : "") +
       '<div class="modal-actions"><button type="button" class="text-button" data-action="close-overlay">Cancel</button>' +
       '<button class="primary-button" type="submit"' + (!payableAccounts.length ? " disabled" : "") + ">Add obligation</button></div></form>";
-    return modalShell("Add an upcoming obligation", "Known dues are reserved before FinanceOS calculates what is safe to spend.", body);
+    return modalShell("Add an upcoming obligation", "Known dues are reserved before Capital calculates what is safe to spend.", body);
   }
 
   function renderLock() {
     return '<div class="lock-screen"><div class="lock-orb"><div class="brand-mark">₹</div></div><form class="lock-card" data-form="unlock">' +
-      '<div class="lock-brand">FinanceOS</div>' + icon("lock") + '<h1>Welcome back</h1><p>Unlock the private snapshot stored on this device.</p>' +
+      '<div class="lock-brand">Capital</div>' + icon("lock") + '<h1>Welcome back</h1><p>Unlock the private snapshot stored on this device.</p>' +
       '<label class="pin-input"><input id="unlock-pin" name="pin" inputmode="numeric" maxlength="6" placeholder="6-digit PIN" type="password">' +
       '<button type="button" data-action="toggle-unlock-pin" aria-label="Show PIN">' + icon("eye") + '</button></label>' +
-      '<button class="primary-button full" id="unlock-button" disabled>Unlock FinanceOS</button><span class="lock-disclaimer">' +
+      '<button class="primary-button full" id="unlock-button" disabled>Unlock Capital</button><span class="lock-disclaimer">' +
       icon("info") + " This protects the local view; your Sheet token controls backend access.</span></form></div>";
   }
 
@@ -1127,12 +1127,12 @@
       target.files[0].text().then(function (text) {
         var next = JSON.parse(text);
         if (!Array.isArray(next.accounts) || !Array.isArray(next.transactions) || !Array.isArray(next.budgets) || !Array.isArray(next.recurring)) {
-          throw new Error("Missing FinanceOS collections");
+          throw new Error("Missing Capital collections");
         }
         updateSnapshot(next);
         renderApp();
         showToast("Backup imported successfully");
-      }).catch(function () { showToast("That file is not a valid FinanceOS backup"); });
+      }).catch(function () { showToast("That file is not a valid Capital backup"); });
     }
     if (target.dataset.role === "account-type") {
       var isCredit = target.value === "credit";
@@ -1222,7 +1222,7 @@
           if (verifier !== record.verifier) throw new Error("Wrong PIN");
           state.locked = false;
           renderApp();
-          showToast("FinanceOS unlocked");
+          showToast("Capital unlocked");
         }).catch(function () {
           var input = document.getElementById("unlock-pin");
           if (input) { input.value = ""; input.focus(); }
