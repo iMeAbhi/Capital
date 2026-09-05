@@ -1544,6 +1544,33 @@ button:disabled {
   gap: 15px;
 }
 
+.account-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.account-group-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.account-group-head h3 {
+  margin: 0;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.account-group-head strong {
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+}
+
 .account-detail-card {
   min-height: 325px;
   padding: 18px;

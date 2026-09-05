@@ -502,7 +502,7 @@
     var transactions = state.snapshot.transactions;
     var assets = accounts.filter(function (account) { return account.balance > 0; }).reduce(function (sum, account) { return sum + account.balance; }, 0);
     var liabilities = Math.abs(accounts.filter(function (account) { return account.balance < 0; }).reduce(function (sum, account) { return sum + account.balance; }, 0));
-    var cards = accounts.map(function (account) {
+    function renderCard(account) {
       var recent = transactions.filter(function (transaction) { return transaction.accountId === account.id; }).slice(0, 3);
       var mismatch = account.reportedBalance !== undefined && account.reportedBalance !== account.balance;
       var recentRows = recent.length ? recent.map(function (transaction) {
@@ -522,6 +522,19 @@
         "</span></div><span>Updated " + esc(account.freshness) + '</span></div><div class="account-recent">' + recentRows +
         '</div><button class="secondary-button full" data-action="reconcile-account" data-id="' + esc(account.id) + '">' +
         icon(account.type === "investment" ? "trend" : "sync") + (account.type === "investment" ? " Update valuation" : " Reconcile balance") + "</button></section>";
+    }
+    var groups = [
+      { title: "Banking & cash", types: ["bank", "cash"] },
+      { title: "Credit cards", types: ["credit"] },
+      { title: "Investments", types: ["investment"] }
+    ];
+    var grouped = groups.map(function (group) {
+      var members = accounts.filter(function (account) { return group.types.indexOf(account.type) !== -1; });
+      if (!members.length) return "";
+      var total = members.reduce(function (sum, account) { return sum + account.balance; }, 0);
+      return '<section class="account-group"><header class="account-group-head"><h3>' + esc(group.title) +
+        '</h3><strong>' + signedInr(total) + '</strong></header><div class="accounts-grid">' +
+        members.map(renderCard).join("") + "</div></section>";
     }).join("");
     return '<div class="view-stack">' +
       pageHeading("One trusted ledger", "Accounts", "Balances are estimates until reconciled against a reported balance.",
@@ -530,7 +543,7 @@
         statCard("Net worth", inr(netWorth(accounts)), "+2.9% this month", "trend", "green") +
         statCard("Assets", inr(assets), "Banks, cash and investments", "bank", "blue") +
         statCard("Liabilities", inr(liabilities), "Credit card balances", "card", "coral") +
-      '</div><div class="accounts-grid">' + cards + "</div></div>";
+      '</div>' + grouped + "</div>";
   }
 
   function renderUpcoming() {
