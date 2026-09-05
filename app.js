@@ -322,7 +322,7 @@
           icon(state.sync.mode === "offline" ? "clock" : "wifi") + "<span>" + esc(state.sync.message) + "</span>" + icon("sync") + "</button>" +
           '<button class="icon-button" data-action="theme-toggle" aria-label="Use ' + (state.theme === "light" ? "dark" : "light") + ' theme">' + icon(state.theme === "light" ? "moon" : "sun") + "</button>" +
           '<button class="icon-button notification-button" data-action="review-queue" aria-label="Notifications">' + icon("bell") + (count ? "<span></span>" : "") + "</button>" +
-          '<button class="avatar-button" data-action="settings" aria-label="Open settings">SA</button></div></header>' +
+          '<button class="avatar-button" data-action="settings" aria-label="Open settings">AB</button></div></header>' +
         '<div class="content-area">' + renderView() + "</div></main>" +
       '<nav class="mobile-nav" aria-label="Mobile navigation">' + mobileNav + "</nav></div>" +
       '<div id="overlay-root">' + renderOverlay() + "</div>" +
@@ -377,7 +377,7 @@
     }).join("");
     var allocated = Math.round((flow.spent + flow.invested) / Math.max(flow.income, 1) * 100);
     return '<div class="view-stack overview-view">' +
-      pageHeading("Your command centre", "Good morning, Shivam.", "September is funded. Here’s what your money can do next.",
+      pageHeading("Your command centre", "Good morning, AB.", "September is funded. Here’s what your money can do next.",
         button("add-transaction", "Add transaction", "primary-button", "plus")) +
       (state.sync.mode === "demo" ? '<div class="demo-banner"><div class="demo-icon">' + icon("sparkles") +
         '</div><div><strong>You’re exploring a private demo.</strong><span>Every interaction works locally. Connect your own Sheet when you’re ready.</span></div>' +
