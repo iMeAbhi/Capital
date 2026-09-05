@@ -1,4 +1,4 @@
-const CACHE = "financeos-vanilla-v1";
+const CACHE = "financeos-vanilla-v2";
 const ROOT = self.registration.scope;
 const asset = (path) => new URL(path, ROOT).href;
 const APP_SHELL = [
